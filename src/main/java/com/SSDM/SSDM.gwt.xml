@@ -1,0 +1,20 @@
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN"
+        "http://gwtproject.org/doctype/2.7.0/gwt-module.dtd">
+<module rename-to="SSDM">
+
+    <!-- Inherit the core Web Toolkit stuff.                  -->
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name="com.google.gwt.user.theme.chrome.Chrome"/>
+
+
+    <!-- Specify the app entry point class.                   -->
+    <entry-point class='com.SSDM.client.SSDM'/>
+
+    <!-- Specify the app servlets.                   -->
+    <servlet path='/StudentService' class='com.SSDM.server.impl.StudentServiceImpl'/>
+    <servlet path='/StudentGroupService' class='com.SSDM.server.impl.StudentGroupServiceImpl'/>
+
+    <source path="client"/>
+    <source path="model"/>
+    <source path="server"/>
+</module>

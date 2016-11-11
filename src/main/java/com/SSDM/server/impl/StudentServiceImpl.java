@@ -11,9 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * Created by Daniil on 07.11.2016.
- */
+
 @Component
 public class StudentServiceImpl extends AutowiringRemoteServiceServlet implements StudentService {
 

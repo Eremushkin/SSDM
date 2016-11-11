@@ -15,10 +15,9 @@ public interface StudentGroupService extends RemoteService {
     List<StudentGroupVO> getAll();
     StudentGroupVO getByNumber(String number);
 
+
     public static class App {
-
         private static StudentGroupServiceAsync ourInstance = GWT.create(StudentGroupService.class);
-
         public static synchronized StudentGroupServiceAsync getInstance() {
             return ourInstance;
         }

@@ -2,3 +2,5 @@
 
 .idea/*
 target/*
+src/main/java/com/SSDM/Main.java
+src/main/resources/applicationContext.xml

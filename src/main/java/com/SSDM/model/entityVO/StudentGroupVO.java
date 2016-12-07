@@ -40,4 +40,9 @@ public class StudentGroupVO implements Serializable {
     public void setStudents(List<StudentVO> students) {
         this.students = students;
     }
+
+    @Override
+    public String toString() {
+        return groupNumber;
+    }
 }

@@ -30,11 +30,12 @@ public class Student {
 
     @OneToMany(mappedBy = "student")
     @LazyCollection(LazyCollectionOption.FALSE)
+    @OrderBy("date")
     private List<Mark> marks;
 
     public Student() {
     }
-   public Student(String firstName, String lastName, StudentGroup studentGroup) {
+    public Student(String firstName, String lastName, StudentGroup studentGroup) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.studentGroup = studentGroup;

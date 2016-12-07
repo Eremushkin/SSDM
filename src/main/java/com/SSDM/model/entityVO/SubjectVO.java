@@ -38,6 +38,10 @@ public class SubjectVO implements Serializable{
         return teachers;
     }
 
+    public void setTeachers(List<TeacherVO> teachers) {
+        this.teachers = teachers;
+    }
+
     @Override
     public String toString() {
         return subjectName;

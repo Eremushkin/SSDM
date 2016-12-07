@@ -19,8 +19,9 @@ public class Subject {
     private String subjectName;
 
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subjects")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "subjects")
     private List<Teacher> teachers;
+
     /*@ManyToMany
     @JoinTable(name = "teacher_subject",
                 joinColumns = @JoinColumn(name="subject_id", referencedColumnName = "subject_id"),

@@ -1,10 +1,12 @@
 package com.SSDM.model.entityVO;
 
+import javax.persistence.ManyToMany;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Comparator;
+import java.util.Date;
 
 
-public class MarkVO implements Serializable{
+public class MarkVO implements Serializable, Comparable<MarkVO> {
 
     private long markId;
     private int mark;
@@ -71,5 +73,12 @@ public class MarkVO implements Serializable{
 
     public void setTeacher(TeacherVO teacher) {
         this.teacher = teacher;
+    }
+
+
+
+    @Override
+    public int compareTo(MarkVO o) {
+        return date.compareTo(o.getDate());
     }
 }

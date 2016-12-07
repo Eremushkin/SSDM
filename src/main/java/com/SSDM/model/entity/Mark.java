@@ -1,7 +1,8 @@
 package com.SSDM.model.entity;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
+
 
 @Entity
 @Table(name = "mark")

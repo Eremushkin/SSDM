@@ -1,22 +1,18 @@
-package com.SSDM.client.ui;
+package com.SSDM.client.ui.page.infoPage;
 
 import com.SSDM.model.entityVO.StudentGroupVO;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * Created by Daniil on 11.11.2016.
  */
-public class StudentGroupInfo extends VerticalPanel {
+public class StudentGroupInfoPage extends VerticalPanel {
 
     final StudentGroupVO group;
 
-    public StudentGroupInfo(StudentGroupVO group) {
+    public StudentGroupInfoPage(StudentGroupVO group) {
         this.group = group;
-
-
     }
 
     public VerticalPanel init(){

@@ -3,7 +3,7 @@ package com.SSDM.server.impl;
 
 import com.SSDM.client.service.studentService.StudentService;
 
-import com.SSDM.model.service.StudentSpringDataService;
+import com.SSDM.controler.service.StudentSpringDataService;
 import com.SSDM.server.AutowiringRemoteServiceServlet;
 import com.SSDM.model.entityVO.StudentVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +18,23 @@ public class StudentServiceImpl extends AutowiringRemoteServiceServlet implement
     @Autowired
     private transient StudentSpringDataService service;
 
-
-   /*@Override
-    public void add(Student student) {
-
-    }*/
+    @Override
+    public void add(StudentVO student) {
+        service.addOrUpdate(student);
+    }
 
     @Override
+    public StudentVO getById(long id) {
+        return service.getById(id);
+    }
 
+    @Override
     public List<StudentVO> getAll() {
-
         return service.getAll();
+    }
+
+    @Override
+    public void delete(long id) {
+        service.delete(id);
     }
 }

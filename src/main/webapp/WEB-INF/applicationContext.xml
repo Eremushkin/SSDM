@@ -21,7 +21,6 @@
     <context:annotation-config />
     <import resource="classpath:persistenceContext.xml" />
 
-    <bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper">
-
-    </bean>
+    <bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper"/>
+    <bean id="excelParser" class = "com.SSDM.controler.parser.ExcelParser"/>
 </beans>

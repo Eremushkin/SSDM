@@ -13,7 +13,7 @@ public interface StudentGroupServiceAsync {
     //void addOrUpdate(StudentGroup studentGroup);
 
     void getAll(AsyncCallback<List<StudentGroupVO>> async);
-    void getByNumber(String number, AsyncCallback<StudentGroupVO> async);
+    void getByGroupNumber(String number, AsyncCallback<StudentGroupVO> async);
 
 
 

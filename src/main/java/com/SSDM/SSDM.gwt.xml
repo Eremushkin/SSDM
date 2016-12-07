@@ -13,8 +13,10 @@
     <!-- Specify the app servlets.                   -->
     <servlet path='/StudentService' class='com.SSDM.server.impl.StudentServiceImpl'/>
     <servlet path='/StudentGroupService' class='com.SSDM.server.impl.StudentGroupServiceImpl'/>
+    <servlet path='/SubjectService' class='com.SSDM.server.impl.SubjectServiceImpl'/>
 
-    <source path="client"/>
+    <source path="controller"/>
     <source path="model"/>
     <source path="server"/>
+    <source path="client"/>
 </module>

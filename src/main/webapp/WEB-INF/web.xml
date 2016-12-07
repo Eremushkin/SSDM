@@ -25,6 +25,42 @@
         <url-pattern>/SSDM/StudentGroupService</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>SubjectService</servlet-name>
+        <servlet-class>com.SSDM.server.impl.SubjectServiceImpl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SubjectService</servlet-name>
+        <url-pattern>/SSDM/SubjectService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TeacherService</servlet-name>
+        <servlet-class>com.SSDM.server.impl.TeacherServiceImpl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TeacherService</servlet-name>
+        <url-pattern>/SSDM/TeacherService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MarkService</servlet-name>
+        <servlet-class>com.SSDM.server.impl.MarkServiceImpl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MarkService</servlet-name>
+        <url-pattern>/SSDM/MarkService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <servlet-class>com.SSDM.controler.servlet.UploadFileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <url-pattern>/SSDM/FileUpload</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>SSDM.html</welcome-file>
     </welcome-file-list>

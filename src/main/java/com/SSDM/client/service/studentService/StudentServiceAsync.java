@@ -10,6 +10,12 @@ import java.util.List;
  */
 public interface StudentServiceAsync {
 
-    //void add(Student student, AsyncCallback<Void> async);
+
     void getAll(AsyncCallback<List<StudentVO>> async);
+
+    void add(StudentVO student, AsyncCallback<Void> async);
+
+    void getById(long id, AsyncCallback<StudentVO> async);
+
+    void delete(long id, AsyncCallback<Void> async);
 }

@@ -18,11 +18,14 @@ public class Subject {
     @Column(name = "subject_name", length = 50)
     private String subjectName;
 
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subjects")
+    private List<Teacher> teachers;
+    /*@ManyToMany
     @JoinTable(name = "teacher_subject",
                 joinColumns = @JoinColumn(name="subject_id", referencedColumnName = "subject_id"),
                 inverseJoinColumns = @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id"))
-    private List<Teacher> teachers;
+    private List<Teacher> teachers;*/
 
     public Subject() {
     }
@@ -35,10 +38,22 @@ public class Subject {
         return subjectId;
     }
 
+    public void setSubjectId(long subjectId) {
+        this.subjectId = subjectId;
+    }
+
     public String getSubjectName() {
         return subjectName;
     }
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
+    }
+
+    public List<Teacher> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(List<Teacher> teachers) {
+        this.teachers = teachers;
     }
 }

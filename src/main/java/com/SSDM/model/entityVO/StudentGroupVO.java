@@ -4,9 +4,6 @@ package com.SSDM.model.entityVO;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by Daniil on 09.11.2016.
- */
 public class StudentGroupVO implements Serializable {
 
     private long groupId;
@@ -14,6 +11,10 @@ public class StudentGroupVO implements Serializable {
     private List<StudentVO> students;
 
     public StudentGroupVO() {
+    }
+
+    public StudentGroupVO(String groupNumber) {
+        this.groupNumber = groupNumber;
     }
 
     public long getGroupId() {

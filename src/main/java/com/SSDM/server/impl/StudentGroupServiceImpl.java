@@ -2,7 +2,7 @@ package com.SSDM.server.impl;
 
 import com.SSDM.client.service.groupService.StudentGroupService;
 import com.SSDM.model.entityVO.StudentGroupVO;
-import com.SSDM.model.service.StudentGroupSpringDataService;
+import com.SSDM.controler.service.StudentGroupSpringDataService;
 import com.SSDM.server.AutowiringRemoteServiceServlet;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class StudentGroupServiceImpl extends AutowiringRemoteServiceServlet impl
     }
 
     @Override
-    public StudentGroupVO getByNumber(String number) {
+    public StudentGroupVO getByGroupNumber(String number) {
         return service.getByNumber(number);
     }
 }

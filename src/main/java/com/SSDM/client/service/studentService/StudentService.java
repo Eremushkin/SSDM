@@ -11,8 +11,10 @@ import java.util.List;
 @RemoteServiceRelativePath("StudentService")
 public interface StudentService extends RemoteService {
 
-    //void add(Student student);
+    void add(StudentVO student);
+    StudentVO getById(long id);
     List<StudentVO> getAll();
+    void delete(long id);
 
     public static class App {
 

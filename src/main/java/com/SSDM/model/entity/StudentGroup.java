@@ -30,6 +30,14 @@ public class StudentGroup {
         this.groupNumber = groupNumber;
     }
 
+    public long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(long groupId) {
+        this.groupId = groupId;
+    }
+
     public String getGroupNumber() {
         return groupNumber;
     }

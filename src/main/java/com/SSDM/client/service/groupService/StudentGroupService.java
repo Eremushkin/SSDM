@@ -13,7 +13,7 @@ public interface StudentGroupService extends RemoteService {
 
     //void addOrUpdate(StudentGroup studentGroup);
     List<StudentGroupVO> getAll();
-    StudentGroupVO getByNumber(String number);
+    StudentGroupVO getByGroupNumber(String number);
 
 
     public static class App {

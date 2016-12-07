@@ -1,4 +1,4 @@
-package com.SSDM.model.service;
+package com.SSDM.controler.service;
 
 import com.SSDM.model.entity.Student;
 import com.SSDM.model.repository.StudentRepository;
@@ -32,8 +32,10 @@ public class StudentSpringDataService {
         }
         return studentVOList;
     }
-    public StudentVO addOrUpdate(Student student) {
-        return mapEntity(repository.save(student));
+
+    public StudentVO addOrUpdate(StudentVO student) {
+        Student tmpStudent = mapper.map(student, Student.class);
+        return mapEntity(repository.saveAndFlush(tmpStudent));
     }
     public void delete(long id) {
         repository.delete(id);
@@ -41,7 +43,6 @@ public class StudentSpringDataService {
     public StudentVO getById(long id) {
         return mapEntity(repository.findOne(id));
     }
-
     public List<StudentVO> getAll() {
        return mapEntity(repository.findAll());
     }

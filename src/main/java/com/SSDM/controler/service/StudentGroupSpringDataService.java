@@ -1,4 +1,4 @@
-package com.SSDM.model.service;
+package com.SSDM.controler.service;
 
 
 import com.SSDM.model.entity.StudentGroup;
@@ -34,7 +34,8 @@ public class StudentGroupSpringDataService {
         return StudentGroupVOList;
     }
 
-    public StudentGroupVO addOrUpdate(StudentGroup studentGroup) {
+    public StudentGroupVO addOrUpdate(StudentGroupVO studentGroupVO) {
+        StudentGroup studentGroup = mapper.map(studentGroupVO, StudentGroup.class);
         return mapEntity(repository.save(studentGroup));
     }
     public void delete(long id) {

@@ -1,8 +1,14 @@
 package com.SSDM.model.entity;
 
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Entity
@@ -18,12 +24,13 @@ public class Student {
     @Column(name = "last_name", length = 32)
     private String lastName;
 
-    @ManyToOne( fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne( fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH})
     @JoinColumn(name="group_id", nullable = false)
     private StudentGroup studentGroup;
 
-    /*@OneToMany(fetch = FetchType.EAGER, mappedBy = "student")
-    private List<Mark> marks;*/
+    @OneToMany(mappedBy = "student")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Mark> marks;
 
     public Student() {
     }
@@ -33,8 +40,11 @@ public class Student {
         this.studentGroup = studentGroup;
     }
 
-    public Long getId(){
+    public Long getStudentId() {
         return studentId;
+    }
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 
     public String getFirstName() {
@@ -58,10 +68,12 @@ public class Student {
         this.studentGroup = studentGroup;
     }
 
-    /*public List<Mark> getMarks() {
+    public List<Mark> getMarks() {
         return marks;
-    }*/
-
+    }
+    public void setMarks(List<Mark> marks) {
+        this.marks = marks;
+    }
 
     @Override
     public String toString() {

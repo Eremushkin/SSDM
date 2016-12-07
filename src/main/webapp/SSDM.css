@@ -10,7 +10,13 @@ body, td, a, div, .p {
     font-family: arial, sans-serif
 }
 
-.studentListHeader{
+.entityListHeader {
     background-color: #00affe;
     color: white;
+    font-size: 12em;
 }
+
+.errorMessage {
+    color: red;
+}
+

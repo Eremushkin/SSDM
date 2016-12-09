@@ -1,7 +1,6 @@
-package com.SSDM.client.ui.panel.addPanel.addPanelWidget.checkBoxList;
+package com.SSDM.client.ui.myWidget.checkBoxList;
 
 import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.Label;
 
 import java.util.ArrayList;
 import java.util.List;

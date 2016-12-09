@@ -24,4 +24,9 @@ public class SubjectServiceImpl extends AutowiringRemoteServiceServlet implement
     public SubjectVO addOrUpdate(SubjectVO subjectVO) {
         return  service.addOrUpdate(subjectVO);
     }
+
+    @Override
+    public void delete(long id) {
+        service.delete(id);
+    }
 }

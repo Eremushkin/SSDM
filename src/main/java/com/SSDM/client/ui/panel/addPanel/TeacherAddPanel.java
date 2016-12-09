@@ -2,9 +2,9 @@ package com.SSDM.client.ui.panel.addPanel;
 
 import com.SSDM.client.service.subjectService.SubjectService;
 import com.SSDM.client.service.teacherService.TeacherService;
-import com.SSDM.client.ui.panel.addPanel.addPanelWidget.checkBoxList.CheckBoxListCache;
-import com.SSDM.client.ui.panel.addPanel.addPanelWidget.ValidateTextBox;
-import com.SSDM.client.ui.panel.addPanel.addPanelWidget.ErrorLabel;
+import com.SSDM.client.ui.myWidget.checkBoxList.CheckBoxListCache;
+import com.SSDM.client.ui.myWidget.ValidateTextBox;
+import com.SSDM.client.ui.myWidget.ErrorLabel;
 import com.SSDM.client.ui.panel.addPanel.validator.impl.NameValidator;
 import com.SSDM.model.entityVO.SubjectVO;
 import com.SSDM.model.entityVO.TeacherVO;

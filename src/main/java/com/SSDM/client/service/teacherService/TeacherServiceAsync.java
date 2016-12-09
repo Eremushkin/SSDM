@@ -10,4 +10,6 @@ public interface TeacherServiceAsync {
     void getAll(AsyncCallback<List<TeacherVO>> async);
 
     void addOrUpdate(TeacherVO teacherVO, AsyncCallback<Void> async);
+
+    void getById(long id, AsyncCallback<TeacherVO> async);
 }

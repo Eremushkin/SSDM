@@ -10,4 +10,6 @@ public interface SubjectServiceAsync {
     void getAll(AsyncCallback<List<SubjectVO>> async);
 
     void addOrUpdate(SubjectVO subjectVO, AsyncCallback<SubjectVO> async);
+
+    void delete(long id, AsyncCallback<Void> async);
 }

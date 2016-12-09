@@ -24,4 +24,9 @@ public class TeacherServiceImpl extends AutowiringRemoteServiceServlet implement
     public void addOrUpdate(TeacherVO teacherVO) {
         service.addOrUpdate(teacherVO);
     }
+
+    @Override
+    public TeacherVO getById(long id) {
+        return service.getById(id);
+    }
 }

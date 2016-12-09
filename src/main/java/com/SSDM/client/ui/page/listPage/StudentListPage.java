@@ -2,7 +2,7 @@ package com.SSDM.client.ui.page.listPage;
 
 import com.SSDM.client.service.groupService.StudentGroupService;
 import com.SSDM.client.ui.panel.addPanel.StudentAddPanel;
-import com.SSDM.client.ui.panel.listPanel.impl.StudentListPanel;
+import com.SSDM.client.ui.myWidget.listEntityFlexTable.impl.StudentListEntityFlexTable;
 import com.SSDM.model.entityVO.StudentGroupVO;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class StudentListPage extends VerticalPanel {
 
-    private final StudentListPanel studentListPanel = new StudentListPanel();
+    private final StudentListEntityFlexTable studentListPanel = new StudentListEntityFlexTable();
 
     public StudentListPage() {
         final ListBox groupListBox = getListBox();

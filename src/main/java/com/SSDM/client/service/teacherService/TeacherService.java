@@ -12,6 +12,7 @@ public interface TeacherService extends RemoteService {
 
     List<TeacherVO> getAll();
     void addOrUpdate(TeacherVO teacherVO);
+    TeacherVO getById(long id);
 
     class App {
 

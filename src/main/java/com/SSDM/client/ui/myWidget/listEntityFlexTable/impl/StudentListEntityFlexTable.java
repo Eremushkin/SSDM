@@ -1,27 +1,30 @@
-package com.SSDM.client.ui.panel.listPanel.impl;
+package com.SSDM.client.ui.myWidget.listEntityFlexTable.impl;
 
 import com.SSDM.client.service.studentService.StudentService;
-import com.SSDM.client.ui.panel.listPanel.AbstractListPanel;
+import com.SSDM.client.ui.myWidget.listEntityFlexTable.AbstractListEntityFlexTable;
+import com.SSDM.client.ui.myWidget.listEntityFlexTable.deleteStrategy.DeleteStrategy;
 import com.SSDM.model.entityVO.StudentVO;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Hyperlink;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
 
 
-public class StudentListPanel extends AbstractListPanel<StudentVO> {
+public class StudentListEntityFlexTable extends AbstractListEntityFlexTable<StudentVO> {
+
     private static final String[] HEADER = {"Фамилия Имя", "Номер группы"};
 
-
-    public StudentListPanel() {
+    public StudentListEntityFlexTable() {
         super(HEADER);
     }
 
+    public StudentListEntityFlexTable(DeleteStrategy<StudentVO> deleteStrategy) {
+        super(HEADER, deleteStrategy);
+    }
+
     @Override
-    protected void initRow(final int row, final StudentVO studentVO) {
+    public void initRow(final int row, final StudentVO studentVO) {
         String lastName = studentVO.getLastName();
         String firstName = studentVO.getFirstName();
         String groupNumber = studentVO.getStudentGroup().getGroupNumber();
@@ -38,7 +41,7 @@ public class StudentListPanel extends AbstractListPanel<StudentVO> {
                 StudentService.App.getInstance().delete(studentVO.getStudentId(), new AsyncCallback<Void>() {
                     @Override
                     public void onFailure(Throwable throwable) {
-                        RootPanel.get().add(new Label("dasdasdff"));
+
                     }
 
                     @Override

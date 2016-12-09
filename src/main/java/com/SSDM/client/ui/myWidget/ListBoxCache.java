@@ -1,4 +1,4 @@
-package com.SSDM.client.ui.panel.addPanel.addPanelWidget;
+package com.SSDM.client.ui.myWidget;
 
 import com.google.gwt.user.client.ui.ListBox;
 

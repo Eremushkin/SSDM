@@ -1,4 +1,4 @@
-package com.SSDM.client.ui.panel.addPanel.addPanelWidget;
+package com.SSDM.client.ui.myWidget;
 
 import com.SSDM.client.ui.panel.addPanel.validator.Validator;
 import com.google.gwt.event.dom.client.ChangeEvent;

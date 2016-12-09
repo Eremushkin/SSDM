@@ -12,6 +12,7 @@ public interface SubjectService extends RemoteService {
 
     List<SubjectVO> getAll();
     SubjectVO addOrUpdate(SubjectVO subjectVO);
+    void delete(long id);
 
     public static class App {
 

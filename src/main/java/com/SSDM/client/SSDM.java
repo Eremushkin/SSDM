@@ -1,15 +1,15 @@
 package com.SSDM.client;
 
-import com.SSDM.client.service.groupService.StudentGroupService;
 import com.SSDM.client.service.studentService.StudentService;
+import com.SSDM.client.service.teacherService.TeacherService;
 import com.SSDM.client.ui.page.StartPage;
-import com.SSDM.client.ui.page.infoPage.StudentGroupInfoPage;
 import com.SSDM.client.ui.page.infoPage.StudentInfoPage;
+import com.SSDM.client.ui.page.infoPage.TeacherInfoPage;
 import com.SSDM.client.ui.page.listPage.StudentListPage;
 import com.SSDM.client.ui.page.listPage.SubjectListPage;
 import com.SSDM.client.ui.page.listPage.TeacherListPage;
-import com.SSDM.model.entityVO.StudentGroupVO;
 import com.SSDM.model.entityVO.StudentVO;
+import com.SSDM.model.entityVO.TeacherVO;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -29,18 +29,18 @@ public class SSDM implements EntryPoint {
             public void onValueChange(ValueChangeEvent<String> valueChangeEvent) {
                 String historyToken = valueChangeEvent.getValue();
 
-                if ("group".equals(historyToken.substring(0, 5))) {
+                if ("Teacher".equals(historyToken.substring(0, 7))) {
                     clearRootPanel();
-                    StudentGroupService.App.getInstance().getByGroupNumber(historyToken.substring(5), new AsyncCallback<StudentGroupVO>() {
+                    long id = Long.parseLong(historyToken.substring(7));
+                    TeacherService.App.getInstance().getById(id, new AsyncCallback<TeacherVO>() {
                         @Override
                         public void onFailure(Throwable throwable) {
 
                         }
 
                         @Override
-                        public void onSuccess(StudentGroupVO studentGroupVO) {
-                            clearRootPanel();
-                            RootPanel.get("slot1").add(new StudentGroupInfoPage(studentGroupVO).init());
+                        public void onSuccess(TeacherVO teacherVO) {
+                            RootPanel.get("slot1").add(new TeacherInfoPage(teacherVO));
                         }
                     });
                 } else if ("studentList".equals(historyToken)) {

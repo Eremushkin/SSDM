@@ -28,7 +28,7 @@ public class StartPage extends HorizontalPanel {
             }
         });
 
-        Button showSubjectListButton = new Button("Показать список предметоа");
+        Button showSubjectListButton = new Button("Показать список предметов");
         showSubjectListButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {

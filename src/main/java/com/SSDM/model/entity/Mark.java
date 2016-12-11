@@ -18,16 +18,16 @@ public class Mark {
     private Date date;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "student_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "student_id")
     private Student student;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "subject_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "subject_id")
     private Subject subject;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
-    @JoinColumn(name = "teacher_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH})
+    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
     public Mark() {

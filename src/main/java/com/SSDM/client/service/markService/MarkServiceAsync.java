@@ -8,4 +8,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public interface MarkServiceAsync {
     void addOrUpdate(MarkVO markVO, AsyncCallback<Void> async);
+
+    void delete(long id, AsyncCallback<Void> async);
 }

@@ -3,6 +3,7 @@ package com.SSDM.client.ui.page.listPage;
 import com.SSDM.client.service.subjectService.SubjectService;
 import com.SSDM.client.ui.panel.addPanel.SubjectAddPanel;
 import com.SSDM.client.ui.myWidget.listEntityFlexTable.impl.SubjectListEntityFlexTable;
+import com.SSDM.client.ui.strategy.updatingStrategy.impl.SubjectListUpdatingStrategy;
 import com.SSDM.model.entityVO.SubjectVO;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
@@ -19,7 +20,7 @@ public class SubjectListPage extends VerticalPanel {
     public SubjectListPage() {
 
         subjectListPanel = new SubjectListEntityFlexTable();
-        subjectAddPanel = new SubjectAddPanel();
+        subjectAddPanel = new SubjectAddPanel(new SubjectListUpdatingStrategy(subjectListPanel));
 
 
         SubjectService.App.getInstance().getAll(new AsyncCallback<List<SubjectVO>>() {

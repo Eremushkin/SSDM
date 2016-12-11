@@ -17,4 +17,9 @@ public class MarkServiceImpl extends AutowiringRemoteServiceServlet implements M
     public void addOrUpdate(MarkVO markVO) {
         service.addOrUpdate(markVO);
     }
+
+    @Override
+    public void delete(long id) {
+        service.delete(id);
+    }
 }

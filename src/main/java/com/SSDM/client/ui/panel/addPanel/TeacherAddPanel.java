@@ -5,6 +5,7 @@ import com.SSDM.client.service.teacherService.TeacherService;
 import com.SSDM.client.ui.myWidget.checkBoxList.CheckBoxListCache;
 import com.SSDM.client.ui.myWidget.ValidateTextBox;
 import com.SSDM.client.ui.myWidget.ErrorLabel;
+import com.SSDM.client.ui.strategy.updatingStrategy.UpdatingStrategy;
 import com.SSDM.client.ui.panel.addPanel.validator.impl.NameValidator;
 import com.SSDM.model.entityVO.SubjectVO;
 import com.SSDM.model.entityVO.TeacherVO;
@@ -12,6 +13,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
@@ -33,17 +35,7 @@ public class TeacherAddPanel extends VerticalPanel {
         }
     }
 
-    private ValueChangeHandler<String> getValueChangeHandler(final ValidateTextBox textBox, final Label errorLable){
-        return new ValueChangeHandler<String>() {
-            @Override
-            public void onValueChange(ValueChangeEvent<String> valueChangeEvent) {
-                errorLable.setVisible(!textBox.isValidText());
-            }
-        };
-    }
-
-
-    public TeacherAddPanel() {
+    public TeacherAddPanel(final UpdatingStrategy updatingStrategy) {
         fullNameTable= new FlexTable();
         checkBoxList = new CheckBoxListCache<>();
 
@@ -66,17 +58,17 @@ public class TeacherAddPanel extends VerticalPanel {
         addButton = new Button("Добавить");
         addButton.setEnabled(false);
 
-        final ErrorLabel firstNameErrorLabel = new ErrorLabel(NameValidator.getValidator().getErrorMessage("Имя"));
+        ErrorLabel firstNameErrorLabel = new ErrorLabel(NameValidator.getValidator().getErrorMessage("Имя"));
         ErrorLabel lastNameErrorLabel = new ErrorLabel(NameValidator.getValidator().getErrorMessage("Фамилия"));
         ErrorLabel middleNameErrorLabel = new ErrorLabel(NameValidator.getValidator().getErrorMessage("Отчество"));
+
+        firstNameTextBox.addErrorLableChangeHandler(firstNameErrorLabel);
+        lastNameTextBox.addErrorLableChangeHandler(lastNameErrorLabel);
+        middleNameTextBox.addErrorLableChangeHandler(middleNameErrorLabel);
 
         initColumn(fullNameTable, 0, new Label("Фамилия"), new Label("Имя"), new Label("Отчество"), new Label("Предметы"));
         initColumn(fullNameTable, 1, lastNameTextBox, firstNameTextBox, middleNameTextBox);
         initColumn(fullNameTable, 2, lastNameErrorLabel, firstNameErrorLabel, middleNameErrorLabel);
-
-        firstNameTextBox.addValueChangeHandler(getValueChangeHandler(firstNameTextBox, firstNameErrorLabel));
-        lastNameTextBox.addValueChangeHandler(getValueChangeHandler(lastNameTextBox, lastNameErrorLabel));
-        middleNameTextBox.addValueChangeHandler(getValueChangeHandler(middleNameTextBox, middleNameErrorLabel));
 
         ValueChangeHandler<String> changeVisibleButton = new ValueChangeHandler<String>() {
             @Override
@@ -103,12 +95,16 @@ public class TeacherAddPanel extends VerticalPanel {
                 TeacherService.App.getInstance().addOrUpdate(newTeacher, new AsyncCallback<Void>() {
                     @Override
                     public void onFailure(Throwable throwable) {
-                        RootPanel.get().add(new Label("Error"));
+                        Window.alert("Что-то пошло не так :(");
                     }
 
                     @Override
                     public void onSuccess(Void aVoid) {
-
+                        Window.alert("Записть успешно добавлена!");
+                        firstNameTextBox.setText("");
+                        lastNameTextBox.setText("");
+                        middleNameTextBox.setText("");
+                        updatingStrategy.update();
                     }
                 });
             }

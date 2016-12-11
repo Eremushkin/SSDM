@@ -1,7 +1,7 @@
 package com.SSDM.client.ui.myWidget.listEntityFlexTable.impl;
 
 import com.SSDM.client.ui.myWidget.listEntityFlexTable.AbstractListEntityFlexTable;
-import com.SSDM.client.ui.myWidget.listEntityFlexTable.deleteStrategy.DeleteStrategy;
+import com.SSDM.client.ui.strategy.deleteStrategy.DeleteStrategy;
 import com.SSDM.model.entityVO.SubjectVO;
 
 

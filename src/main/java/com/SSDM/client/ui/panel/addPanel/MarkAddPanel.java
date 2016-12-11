@@ -3,6 +3,7 @@ package com.SSDM.client.ui.panel.addPanel;
 import com.SSDM.client.service.markService.MarkService;
 import com.SSDM.client.service.subjectService.SubjectService;
 import com.SSDM.client.ui.myWidget.ListBoxCache;
+import com.SSDM.client.ui.strategy.updatingStrategy.UpdatingStrategy;
 import com.SSDM.model.entityVO.MarkVO;
 import com.SSDM.model.entityVO.StudentVO;
 import com.SSDM.model.entityVO.SubjectVO;
@@ -37,7 +38,7 @@ public class MarkAddPanel extends FlexTable {
     private DateBox dateBox;
     private Button addButton;
 
-    public MarkAddPanel(final StudentVO student) {
+    public MarkAddPanel(final StudentVO student, final UpdatingStrategy strategy) {
         this.student = student;
 
         subjectListBox = new ListBoxCache<>();
@@ -101,7 +102,7 @@ public class MarkAddPanel extends FlexTable {
 
                     @Override
                     public void onSuccess(Void aVoid) {
-
+                        strategy.update();
                     }
                 });
             }

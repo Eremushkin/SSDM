@@ -1,11 +1,15 @@
 package com.SSDM.client.ui.page.listPage;
 
 import com.SSDM.client.service.groupService.StudentGroupService;
+import com.SSDM.client.ui.myWidget.ListBoxCache;
+import com.SSDM.client.ui.strategy.deleteStrategy.impl.StudentDeleteStrategy;
 import com.SSDM.client.ui.panel.addPanel.StudentAddPanel;
 import com.SSDM.client.ui.myWidget.listEntityFlexTable.impl.StudentListEntityFlexTable;
+import com.SSDM.client.ui.strategy.updatingStrategy.impl.StudentListUpdatingStrategy;
 import com.SSDM.model.entityVO.StudentGroupVO;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
@@ -14,55 +18,53 @@ import java.util.List;
 
 public class StudentListPage extends VerticalPanel {
 
-    private final StudentListEntityFlexTable studentListPanel = new StudentListEntityFlexTable();
+    private ListBoxCache<StudentGroupVO> groupListBox;
+    private StudentListEntityFlexTable studentListPanel;
+    private StudentAddPanel studentAddPanel;
 
     public StudentListPage() {
-        final ListBox groupListBox = getListBox();
-        final Label label = new Label();
 
-        groupListBox.addChangeHandler(new ChangeHandler() {
-            @Override
-            public void onChange(final ChangeEvent changeEvent) {
-                StudentGroupService.App.getInstance().getByGroupNumber(groupListBox.getSelectedItemText(), new AsyncCallback<StudentGroupVO>() {
+        groupListBox = new ListBoxCache<>();
+        studentListPanel = new StudentListEntityFlexTable(new StudentDeleteStrategy(groupListBox));
+        studentAddPanel = new StudentAddPanel(new StudentListUpdatingStrategy(groupListBox, studentListPanel));
 
-                    @Override
-                    public void onFailure(Throwable throwable) {
-                        label.setText(throwable.getMessage());
-                    }
-                    @Override
-                    public void onSuccess(StudentGroupVO studentGroupVO) {
-                        studentListPanel.clear();
-                        studentListPanel.init(studentGroupVO.getStudents());
-                    }
-                });
-            }
-        });
-        add(groupListBox);
-        add(studentListPanel);
-        add(StudentAddPanel.getAddStudentHorizontalPanel());
-        add(label);
-
-    }
-
-    private ListBox getListBox(){
-        final ListBox groupListBox = new ListBox();
         StudentGroupService.App.getInstance().getAll(new AsyncCallback<List<StudentGroupVO>>() {
 
             @Override
             public void onFailure(Throwable throwable) {
+                Window.alert("ups");
             }
             @Override
             public void onSuccess(List<StudentGroupVO> studentGroupVOs) {
-                for (StudentGroupVO group : studentGroupVOs) {
-                    groupListBox.addItem(group.getGroupNumber());
-                }
+                groupListBox.addAllObject(studentGroupVOs);
                 if(studentGroupVOs != null){
                     studentListPanel.init(studentGroupVOs.get(0).getStudents());
                 }
             }
         });
-        return groupListBox;
+
+        groupListBox.addChangeHandler(new ChangeHandler() {
+            @Override
+            public void onChange(final ChangeEvent changeEvent) {
+                StudentGroupService.App.getInstance().getByGroupNumber(groupListBox.getSelectedItemText(), new AsyncCallback<StudentGroupVO>() {
+                    @Override
+                    public void onFailure(Throwable throwable) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(StudentGroupVO studentGroupVO) {
+                        studentListPanel.init(studentGroupVO.getStudents());
+                    }
+                });
+
+            }
+        });
+
+        add(new HTML("<h1>" + "Список студентов"  + "</h1>"));
+        add(groupListBox);
+        add(studentListPanel);
+        add(new HTML("<h4>" + "Добавить нового студента"  + "</h4>"));
+        add(studentAddPanel);
     }
-
-
 }

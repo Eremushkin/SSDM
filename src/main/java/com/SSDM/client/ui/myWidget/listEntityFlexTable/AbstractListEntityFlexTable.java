@@ -1,6 +1,6 @@
 package com.SSDM.client.ui.myWidget.listEntityFlexTable;
 
-import com.SSDM.client.ui.myWidget.listEntityFlexTable.deleteStrategy.DeleteStrategy;
+import com.SSDM.client.ui.strategy.deleteStrategy.DeleteStrategy;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
@@ -47,12 +47,12 @@ public abstract class AbstractListEntityFlexTable<T> extends FlexTable {
 
     protected void addDeleteButton(final int row, final T t){
         Button deleteButton = new Button("X");
-
+        final AbstractListEntityFlexTable<T> tmp = this;
         deleteButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
                 removeRow(row);
-                init(deleteStrategy.delete(t));
+                deleteStrategy.delete(tmp, t);
             }
         });
         setWidget(row, header.length, deleteButton);

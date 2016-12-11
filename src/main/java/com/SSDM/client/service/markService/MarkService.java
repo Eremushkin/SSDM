@@ -9,6 +9,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface MarkService extends RemoteService {
 
     void addOrUpdate(MarkVO markVO);
+    void delete(long id);
 
     class App {
         private static MarkServiceAsync ourInstance = GWT.create(MarkService.class);

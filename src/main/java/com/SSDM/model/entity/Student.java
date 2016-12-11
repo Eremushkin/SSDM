@@ -28,7 +28,7 @@ public class Student {
     @JoinColumn(name="group_id", nullable = false)
     private StudentGroup studentGroup;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = {CascadeType.ALL})
     @LazyCollection(LazyCollectionOption.FALSE)
     @OrderBy("date")
     private List<Mark> marks;

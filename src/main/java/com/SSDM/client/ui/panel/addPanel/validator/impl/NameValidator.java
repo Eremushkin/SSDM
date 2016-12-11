@@ -23,7 +23,7 @@ public class NameValidator implements Validator{
 
     @Override
     public boolean validate(String text) {
-        RegExp regExp = RegExp.compile("[a-zA-Zа-яА-Я]{2,30}","g");
+        RegExp regExp = RegExp.compile("[a-zA-Zа-яА-Я]{3,30}","g");
         MatchResult matchResult = regExp.exec(text);
         return matchResult != null && matchResult.getGroup(0).length() == text.length();
     }

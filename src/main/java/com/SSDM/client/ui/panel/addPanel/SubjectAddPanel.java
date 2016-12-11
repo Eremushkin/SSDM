@@ -1,12 +1,13 @@
 package com.SSDM.client.ui.panel.addPanel;
 
 import com.SSDM.client.service.subjectService.SubjectService;
+import com.SSDM.client.ui.strategy.updatingStrategy.UpdatingStrategy;
 import com.SSDM.model.entityVO.SubjectVO;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
@@ -15,7 +16,7 @@ public class SubjectAddPanel extends VerticalPanel{
     private TextBox subjectNameTextBox;
     private Button addButton;
 
-    public SubjectAddPanel() {
+    public SubjectAddPanel(final UpdatingStrategy updatingStrategy) {
 
         subjectNameTextBox = new TextBox();
 
@@ -36,12 +37,13 @@ public class SubjectAddPanel extends VerticalPanel{
                 SubjectService.App.getInstance().addOrUpdate(new SubjectVO(subjectNameTextBox.getValue()), new AsyncCallback<SubjectVO>() {
                     @Override
                     public void onFailure(Throwable throwable) {
-
+                        Window.alert("Что-то пошло не так :(");
                     }
 
                     @Override
                     public void onSuccess(SubjectVO subjectVO) {
-
+                        Window.alert("Запись успешно добавлена!");
+                        updatingStrategy.update();
                     }
                 });
             }

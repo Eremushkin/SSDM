@@ -2,25 +2,37 @@ package com.SSDM.client.ui.panel.addPanel;
 
 import com.SSDM.client.service.groupService.StudentGroupService;
 import com.SSDM.client.service.studentService.StudentService;
+import com.SSDM.client.ui.myWidget.ErrorLabel;
+import com.SSDM.client.ui.myWidget.ListBoxCache;
+import com.SSDM.client.ui.myWidget.ValidateTextBox;
+import com.SSDM.client.ui.strategy.updatingStrategy.UpdatingStrategy;
+import com.SSDM.client.ui.panel.addPanel.validator.impl.NameValidator;
 import com.SSDM.model.entityVO.StudentGroupVO;
 import com.SSDM.model.entityVO.StudentVO;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.regexp.shared.MatchResult;
-import com.google.gwt.regexp.shared.RegExp;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
+
 import java.util.List;
 
+/**
+ * Created by Daniil on 09.12.2016.
+ */
+public class StudentAddPanel extends HorizontalPanel {
+
+    private ValidateTextBox firstNameTextBox;
+    private ValidateTextBox lastNameTextBox;
+    private ErrorLabel firstNameErrorLabel;
+    private ErrorLabel lastNameErrorLabel;
+    private ListBoxCache<StudentGroupVO> studentGroupListBox;
+    private Button addButton;
 
 
-public class StudentAddPanel {
-
-    private static final String NAME_MESSAGE_ERROR = "может содержать только символы а-я, А-Я, a-z, A-Z";
-
-    private static VerticalPanel initNameWidget(String name, Widget... widgets){
+    private VerticalPanel initNameWidget(String name, Widget... widgets){
         Label label = new Label(name);
         VerticalPanel verticalPanel = new VerticalPanel();
         verticalPanel.add(label);
@@ -30,129 +42,86 @@ public class StudentAddPanel {
         return verticalPanel;
     }
 
-    private static ListBox getListBox(){
-        final ListBox groupListBox = new ListBox();
-        StudentGroupService.App.getInstance().getAll(new AsyncCallback<List<StudentGroupVO>>() {
+    public StudentAddPanel(final UpdatingStrategy updatingStrategy) {
 
+        firstNameTextBox = new ValidateTextBox(NameValidator.getValidator());
+        lastNameTextBox = new ValidateTextBox(NameValidator.getValidator());
+
+        firstNameErrorLabel = new ErrorLabel(NameValidator.getValidator().getErrorMessage("Имя"));
+        firstNameErrorLabel.setWidth("100%");
+        lastNameErrorLabel = new ErrorLabel(NameValidator.getValidator().getErrorMessage("Фамилия"));
+        lastNameErrorLabel.setWidth("100%");
+
+        studentGroupListBox = new ListBoxCache<>();
+        addButton = new Button("Добавить");
+
+        firstNameTextBox.addErrorLableChangeHandler(firstNameErrorLabel);
+        lastNameTextBox.addErrorLableChangeHandler(lastNameErrorLabel);
+
+        ValueChangeHandler<String> changeVisibleButton = new ValueChangeHandler<String>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<String> valueChangeEvent) {
+                addButton.setEnabled(firstNameTextBox.isValidText()
+                        && lastNameTextBox.isValidText());
+
+            }
+        };
+
+        firstNameTextBox.addValueChangeHandler(changeVisibleButton);
+        lastNameTextBox.addValueChangeHandler(changeVisibleButton);
+
+        StudentGroupService.App.getInstance().getAll(new AsyncCallback<List<StudentGroupVO>>() {
             @Override
             public void onFailure(Throwable throwable) {
 
             }
+
             @Override
             public void onSuccess(List<StudentGroupVO> studentGroupVOs) {
-                for (StudentGroupVO group : studentGroupVOs) {
-                    groupListBox.addItem(group.getGroupNumber());
-                }
+                studentGroupListBox.addAllObject(studentGroupVOs);
             }
         });
-        return groupListBox;
-    }
 
-    private static boolean validateName(String text){
-        RegExp regExp = RegExp.compile("[a-zA-Zа-яА-Я]{2,30}","g");
-
-        MatchResult matchResult = regExp.exec(text);
-        return matchResult != null && matchResult.getGroup(0).length() == text.length();
-    }
-
-    public static HorizontalPanel getAddStudentHorizontalPanel(){
-        HorizontalPanel addStudentHorizontalPanel = new HorizontalPanel();
-        addStudentHorizontalPanel.setWidth("50%");
-
-        final TextBox firstNameTextBox = new TextBox();
-        final Label firstNameErrorLabel = new Label();
-        firstNameErrorLabel.setWidth("100%");
-        firstNameErrorLabel.getElement().getStyle().setColor("red");
-
-        final TextBox lastNameTextBox = new TextBox();
-        final Label lastNameErrorLabel = new Label();
-        lastNameErrorLabel.setWidth("100%");
-        lastNameErrorLabel.getElement().getStyle().setColor("red");
-
-        final ListBox groupListBox = getListBox();
-        groupListBox.setPixelSize(50, 22);
-        Label groupErrorLabel = new Label();
-
-        final Button addButton = new Button("Добавить");
         addButton.setPixelSize(70, 36);
         addButton.setEnabled(false);
         addButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
-                StudentGroupService.App.getInstance().getByGroupNumber(groupListBox.getSelectedItemText(), new AsyncCallback<StudentGroupVO>() {
+
+                StudentVO newStudentVO = new StudentVO();
+
+                newStudentVO.setFirstName(firstNameTextBox.getText());
+                newStudentVO.setLastName(lastNameTextBox.getText());
+                newStudentVO.setStudentGroup(studentGroupListBox.getSelectedObject());
+
+                StudentService.App.getInstance().add(newStudentVO, new AsyncCallback<Void>() {
                     @Override
                     public void onFailure(Throwable throwable) {
-
+                        Window.alert("Что-то пошло не так :(");
                     }
 
                     @Override
-                    public void onSuccess(StudentGroupVO studentGroupVO) {
-                        StudentVO newStudentVO = new StudentVO();
+                    public void onSuccess(Void aVoid) {
+                        Window.alert("Запись успешно добавлена!");
+                        firstNameTextBox.setText("");
+                        lastNameTextBox.setText("");
 
-                        newStudentVO.setFirstName(firstNameTextBox.getText());
-                        newStudentVO.setLastName(lastNameTextBox.getText());
-                        newStudentVO.setStudentGroup(studentGroupVO);
-
-                        StudentService.App.getInstance().add(newStudentVO, new AsyncCallback<Void>() {
-                            @Override
-                            public void onFailure(Throwable throwable) {
-
-                            }
-
-                            @Override
-                            public void onSuccess(Void aVoid) {
-
-                            }
-                        });
+                        updatingStrategy.update();
                     }
+
                 });
             }
         });
 
+        setWidth("50%");
 
-        firstNameTextBox.addValueChangeHandler(new ValueChangeHandler<String>() {
-
-            @Override
-            public void onValueChange(ValueChangeEvent<String> valueChangeEvent) {
-                if(validateName(firstNameTextBox.getText())){
-                    firstNameErrorLabel.setText("");
-                    if(validateName(lastNameTextBox.getText())){
-                        addButton.setEnabled(true);
-                    }
-
-                } else {
-                    firstNameErrorLabel.setText("Имя " + NAME_MESSAGE_ERROR);
-                    addButton.setEnabled(false);
-                }
-            }
-        });
-
-        lastNameTextBox.addValueChangeHandler(new ValueChangeHandler<String>() {
-
-            @Override
-            public void onValueChange(ValueChangeEvent<String> valueChangeEvent) {
-                if(validateName(lastNameTextBox.getText())){
-                    lastNameErrorLabel.setText("");
-                    if(validateName(firstNameTextBox.getText())){
-                        addButton.setEnabled(true);
-                    }
-                } else {
-                    lastNameErrorLabel.setText("Фамилия " + NAME_MESSAGE_ERROR);
-                    addButton.setEnabled(false);
-                }
-            }
-        });
-
-        addStudentHorizontalPanel.add(initNameWidget("Фамилия", lastNameTextBox, lastNameErrorLabel));
-        addStudentHorizontalPanel.add(initNameWidget("Имя", firstNameTextBox, firstNameErrorLabel));
-        addStudentHorizontalPanel.add(initNameWidget("Группа", groupListBox, groupErrorLabel));
-        addStudentHorizontalPanel.add(addButton);
-
-        FileUpload fileUpload = new FileUpload();
-
-
-        return addStudentHorizontalPanel;
+        add(initNameWidget("Фимилия", lastNameTextBox, lastNameErrorLabel));
+        add(initNameWidget("Имя", firstNameTextBox, firstNameErrorLabel));
+        add(initNameWidget("Группа", studentGroupListBox));
+        add(addButton);
     }
 
-
+    public Button getAddButton() {
+        return addButton;
+    }
 }
